@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>표제어 가중치 계산기</title>
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* 헤더 스타일 */
+        h1 {
+            background-color: #0072b1;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* 메인 컨테이너 스타일 */
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        /* 입력 폼 스타일 */
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #0072b1;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* 결과 표시 영역 스타일 */
+        p#결과_표시 {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>오늘 하루 먹은 음식 카페인 점수 계산기</h1>
+    <div class="container">
+        <p>오늘 하루 먹은 음식을 입력하면 <ol>카페인 함량에 따른 카페인 점수를 확인할 수 있어요.</ol></p>
+    
+
+        <!-- 입력 폼 -->
+        <label for="표제어_입력">오늘 하루 먹은 음식 입력 (콤마로 구분): </label>
+        <input type="text" id="표제어_입력" placeholder="음식을 입력하세요">
+        <button onclick="표제어에_가중치_환산()">카페인 점수 확인</button>
+
+        <!-- 결과 표시 영역 -->
+        <p id="결과_표시"></p>
+    </div>
+
+    <script type="text/javascript">
+        // 표제어와 가중치를 포함하는 JavaScript 객체 생성
+        var 가중치_매핑 = {
+            '커피': 3,
+            '초코우유': 2,
+            '김치찌게': 1,
+            '치킨': 1,
+            '콜라': 2,
+            '된장찌게':1,
+            '자메이카 통닭다리':1,
+            '순두부찌게':1,
+            '아이스크림':2,
+            '돈까스':1, 
+            '홍차':3,
+            '황금올리브':1,
+            '녹차':3
+
+            // 다른 표제어와 가중치 추가
+        };
+
+        function 표제어에_가중치_환산() {
+            var 입력_표제어 = document.getElementById('표제어_입력').value;
+            var 결과_표시 = document.getElementById('결과_표시');
+            var 가중치_총합 = 0.0;
+
+            // 입력한 표제어를 콤마(,)로 분리하여 배열로 저장
+            var 입력_표제어들 = 입력_표제어.split(',');
+
+            // 입력한 각 표제어에 대한 가중치 합산
+            for (var i = 0; i < 입력_표제어들.length; i++) {
+                var 표제어 = 입력_표제어들[i].trim(); // 공백 제거
+                if (가중치_매핑.hasOwnProperty(표제어)) {
+                    가중치_총합 += 가중치_매핑[표제어];
+                }
+            }
+
+            // 결과를 화면에 표시
+            if (가중치_총합 > 0) {
+                결과_표시.innerHTML = '입력한 표제어들의 가중치 총합은 ' + 가중치_총합 + '입니다.';
+            } else {
+                결과_표시.innerHTML = '입력한 표제어에 대한 가중치를 찾을 수 없습니다.';
+            }
+        }
+    </script>
+</body>
+</html>
